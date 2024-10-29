@@ -1,4 +1,4 @@
-package Lab1.Task1;
+package Lab1.Task1And3;
 
 public class Display {
     private int width;
