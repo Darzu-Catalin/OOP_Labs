@@ -49,7 +49,7 @@ public class Display {
         String s = (this.height * this.width) > (m.getHeight() * m.getWidth()) ?
                     this.model + " has a bigger size" :
                     (this.height * this.width) == (m.getHeight() * m.getWidth()) ?
-                    this.model + " " + m.getModel() + " have the same size" :
+                    this.model + " and " + m.getModel() + " have the same size" :
                     m.getModel() + " has a bigger size";
         System.out.println(s);
     }
@@ -57,12 +57,45 @@ public class Display {
         String s = this.ppi > m.getPpi() ?
                 this.model + " is sharper" :
                 (this.ppi) == (m.getPpi()) ?
-                this.model + " " + m.getModel() + " are equally sharp" :
+                this.model + " and " + m.getModel() + " are equally sharp" :
                 m.getModel() + " is sharper";
         System.out.println(s);
     }
     public void compareWithMonitor(Display m){
+        System.out.println("\nComparing size and sharpness of Display " + this.model + " and the Display " + m.getModel() + ":");
         compareSize(m);
         compareSharpness(m);
+        System.out.println("--------------------------------------------------------");
+    }
+
+    public Display betterDisplay(Display m) {
+        double sizeWeight = 0.7;
+        double sharpnessWeight = 0.3;
+        double score1 = (this.height * this.width * sizeWeight) + (this.ppi * sharpnessWeight);
+        double score2 = (m.getHeight() * m.getWidth() * sizeWeight) + (m.getPpi() * sharpnessWeight);
+
+        if(score1 > score2) {
+            return this;
+        }
+        else{
+            return m;
+        }
+    }
+
+    public double recommendation(Display m){
+        double sizeWeight = 0.7;
+        double sharpnessWeight = 0.3;
+
+        double score = Math.abs((this.height*this.width - m.height*m.width)*sizeWeight + (this.ppi - m.ppi)*sharpnessWeight);
+
+        return score;
+    }
+
+    @Override
+    public String toString() {
+        return "Display: " + this.model +
+                ", Size: " + this.width + " x " + this.height +
+                ", Sharpness(PPI): " + this.ppi;
     }
 }
+
