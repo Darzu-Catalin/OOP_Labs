@@ -3,10 +3,17 @@ package Lab2.Class;
 public class Americano extends Coffee {
     private int mlOfWater;
 
-
     public Americano(String name, Intensity coffeeIntensity, int mlOfWater) {
         super("Americano", coffeeIntensity);
         this.mlOfWater = mlOfWater;
+    }
+
+
+    public final Americano makeAmericano(){
+        makeCoffeeBase();
+        System.out.println("Brewing a concentrated espresso shot");
+        System.out.println("Adding " + mlOfWater + "ml of hot water to dilute the espresso");
+        return this;
     }
 
     public int getMlOfWater() {

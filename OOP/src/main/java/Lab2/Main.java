@@ -11,6 +11,10 @@ public class Main {
         Cappuccino c2 = new Cappuccino(Intensity.NORMAL, 100);
         c2.printCoffeeDetails();
         c1.printCoffeeDetails();
+        c2.makeCappuccino();
+        c1.makeSyrupCappuccino();
+
+
 
     }
 

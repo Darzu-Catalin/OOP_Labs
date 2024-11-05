@@ -8,6 +8,13 @@ public class PumpkinSpiceLatte extends Cappuccino{
         this.mgOfPumpkinSpice = mgOfPumpkinSpice;
     }
 
+    public final PumpkinSpiceLatte makePumpkinSpiceLatte() {
+        makeCoffeeBase();
+        System.out.println("Steaming " + getMlOfMilk() + " ml of milk with " + mgOfPumpkinSpice + "mg of pumpkin spice");
+        System.out.println("Pouring spiced milk into the espresso and topping with foam");
+        return this;
+    }
+
     public int getMgOfPumpkinSpice() {
         return mgOfPumpkinSpice;
     }
