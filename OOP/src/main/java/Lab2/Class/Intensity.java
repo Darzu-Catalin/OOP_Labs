@@ -1,4 +1,4 @@
-package Lab2.Task1;
+package Lab2.Class;
 
 public enum Intensity {
     LIGHT,
