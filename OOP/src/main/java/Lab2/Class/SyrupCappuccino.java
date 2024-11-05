@@ -1,6 +1,6 @@
 package Lab2.Class;
 
-public class SyrupCappuccino extends Cappuccino {
+class SyrupCappuccino extends Cappuccino {
     private SyrupType syrup;
 
     public SyrupCappuccino(Intensity coffeeIntensity, int mlOfMilk, SyrupType syrup) {

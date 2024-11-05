@@ -1,6 +1,6 @@
 package Lab2.Class;
 
-public class Cappuccino extends Coffee {
+class Cappuccino extends Coffee {
     private int mlOfMilk;
 
     public Cappuccino(String name, Intensity coffeeIntensity, int mlOfMilk) {

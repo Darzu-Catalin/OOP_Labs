@@ -1,6 +1,6 @@
 package Lab2.Class;
 
-public class Coffee {
+class Coffee {
     private Intensity coffeeIntensity;
     private String name;
 
