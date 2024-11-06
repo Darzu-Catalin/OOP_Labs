@@ -23,8 +23,9 @@ public class Barista {
 
     public void getCoffeeRequest() {
         while (true) {
+            Scanner scanner = new Scanner(System.in);
             printMenu();
-            int choice = getValidatedIntegerInput("Enter your choice (1-7):", 1, 7);
+            int choice = getValidatedIntegerInput("Enter your choice (1-6):", 1, 7);
 
             switch (choice) {
                 case 1 -> orders.add("Coffee");
@@ -32,14 +33,20 @@ public class Barista {
                 case 3 -> orders.add("Cappuccino");
                 case 4 -> orders.add("Syrup Cappuccino");
                 case 5 -> orders.add("Pumpkin Spice Latte");
-                case 6 -> makeOrder(orders);
-                case 7 -> {
+                case 6 -> {
                     System.out.println("Goodbye! Thanks for visiting us.");
                     printSeparator();
                     return;
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
+            System.out.println("Want to order more coffee(yes/no)");
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("no")) {
+                makeOrder(orders);
+                break;
+            }
+
         }
     }
 
@@ -65,56 +72,48 @@ public class Barista {
 
         int choice = getValidatedIntegerInput("Enter your choice: ", 1, 2);
         printSeparator();
+        Coffee coffee;
         if (choice == 1) {
             System.out.println("Barista Recommendation for " + coffeeType + ":");
-            getBaristaRecommendation(coffeeType);
+            coffee = getBaristaRecommendation(coffeeType);
 
         } else {
             System.out.println("Customize your " + coffeeType + ":");
-            getCustomCoffee(coffeeType);
+            coffee = getCustomCoffee(coffeeType);
         }
+        coffee.printCoffeeDetails();
+        printSeparator();
+        coffee.makeCoffee();
+        System.out.println("Your coffee is ready! Enjoy the coffee.");
 
     }
 
-    private void getBaristaRecommendation(String coffeeType) {
+    private Coffee getBaristaRecommendation(String coffeeType) {
         printSeparator();
         switch (coffeeType) {
             case "Coffee" -> {
-                Coffee coffee = new Coffee("Coffee",Intensity.NORMAL);
-                coffee.printCoffeeDetails();
-                printSeparator();
-                coffee.makeCoffeeBase();
+                return new Coffee("Coffee",Intensity.NORMAL);
             }
             case "Americano" -> {
-               Americano americano = new Americano(Intensity.NORMAL, 150);
-               americano.printCoffeeDetails();
-                printSeparator();
-               americano.makeAmericano();
+                return new Americano(Intensity.NORMAL, 150);
             }
             case "Cappuccino" -> {
-                Cappuccino cappuccino = new Cappuccino(Intensity.NORMAL, 150);
-                cappuccino.printCoffeeDetails();
-                printSeparator();
-                cappuccino.makeCappuccino();
+                return new Cappuccino(Intensity.NORMAL, 150);
             }
             case "Syrup Cappuccino" -> {
-                SyrupCappuccino syrupCappuccino = new SyrupCappuccino(Intensity.NORMAL, 150, SyrupType.COCONUT);
-                syrupCappuccino.printCoffeeDetails();
-                printSeparator();
-                syrupCappuccino.makeSyrupCappuccino();
+                return new SyrupCappuccino(Intensity.NORMAL, 150, SyrupType.COCONUT);
+
             }
             case "Pumpkin Spice Latte" ->{
-                PumpkinSpiceLatte pumpkinSpiceLatte = new PumpkinSpiceLatte(Intensity.NORMAL, 150, 10);
-                pumpkinSpiceLatte.printCoffeeDetails();
-                printSeparator();
-                pumpkinSpiceLatte.makePumpkinSpiceLatte();
+                return new PumpkinSpiceLatte(Intensity.NORMAL, 150, 10);
+
             }
             default -> throw new IllegalArgumentException("Unknown coffee type: " + coffeeType);
         }
 
     }
 
-    private void getCustomCoffee(String coffeeType) {
+    private Coffee getCustomCoffee(String coffeeType) {
         Intensity intensity = getIntensity();
         int mlOfWater = 0;
         int mlOfMilk = 0;
@@ -123,46 +122,34 @@ public class Barista {
         printSeparator();
         switch (coffeeType) {
             case "Coffee" -> {
-                Coffee coffee = new Coffee("Coffee",intensity);
-                coffee.printCoffeeDetails();
-                printSeparator();
-                coffee.makeCoffeeBase();
+                return new Coffee("Coffee",intensity);
             }
             case "Americano" -> {
                 mlOfWater = getValidatedIntegerInput("Enter ml of water: ", 50, 300);
-                Americano americano = new Americano(intensity, mlOfWater);
                 printSeparator();
-                americano.printCoffeeDetails();
-                printSeparator();
-                americano.makeAmericano();
+                return new Americano(intensity, mlOfWater);
             }
             case "Cappuccino" -> {
                 mlOfMilk = getValidatedIntegerInput("Enter ml of milk: ", 50, 200);
-                Cappuccino cappuccino = new Cappuccino(intensity, mlOfMilk);
                 printSeparator();
-                cappuccino.printCoffeeDetails();
-                printSeparator();
-                cappuccino.makeCappuccino();
+                return new Cappuccino(intensity, mlOfMilk);
+
             }
             case "Syrup Cappuccino" -> {
                 mlOfMilk = getValidatedIntegerInput("Enter ml of milk: ", 50, 200);
                 printSeparator();
                 syrup = getSyrupType();
                 printSeparator();
-                SyrupCappuccino syrupCappuccino = new SyrupCappuccino(intensity, mlOfMilk, syrup);
-                syrupCappuccino.printCoffeeDetails();
-                printSeparator();
-                syrupCappuccino.makeSyrupCappuccino();
+                return new SyrupCappuccino(intensity, mlOfMilk, syrup);
+
             }
             case "Pumpkin Spice Latte" -> {
                 mlOfMilk = getValidatedIntegerInput("Enter ml of milk: ", 50, 200);
                 printSeparator();
                 mgOfSpice = getValidatedIntegerInput("Enter mg of pumpkin spice: ", 1, 50);
                 printSeparator();
-                PumpkinSpiceLatte pumpkinSpiceLatte = new PumpkinSpiceLatte(intensity, mlOfMilk, mgOfSpice);
-                pumpkinSpiceLatte.printCoffeeDetails();
-                printSeparator();
-                pumpkinSpiceLatte.makePumpkinSpiceLatte();
+                return new PumpkinSpiceLatte(intensity, mlOfMilk, mgOfSpice);
+
             }
             default -> throw new IllegalArgumentException("Unknown coffee type");
         }

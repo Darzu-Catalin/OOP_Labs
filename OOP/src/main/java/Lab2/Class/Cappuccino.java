@@ -13,8 +13,9 @@ class Cappuccino extends Coffee {
         this.mlOfMilk = mlOfMilk;
     }
 
-    public final Cappuccino makeCappuccino(){
-        makeCoffeeBase();
+    @Override
+    public Cappuccino makeCoffee(){
+        super.makeCoffee();
         System.out.println("Steaming " + mlOfMilk + " ml of milk to a velvety texture");
         System.out.println("Pouring steamed milk into espresso and topping with foam");
         return this;

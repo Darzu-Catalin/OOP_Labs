@@ -9,9 +9,10 @@ class Coffee {
         this.coffeeIntensity = coffeeIntensity;
     }
 
-    public final void makeCoffeeBase(){
+    public Coffee makeCoffee(){
         System.out.println("Starting the coffee-making process for " + name);
         System.out.println("Grinding coffee beans to " + coffeeIntensity + " intensity");
+        return this;
     }
 
     public void printCoffeeDetails() {
