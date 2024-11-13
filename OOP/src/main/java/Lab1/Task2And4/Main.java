@@ -13,9 +13,9 @@ public class Main {
 
             String fileData = FileReader.readFileIntoString(filePath);
 
-            TextData data = new TextData(filePath, fileData, Counter.countVowels(fileData), Counter.countConsonants(fileData), Counter.countLetters(fileData), Counter.countSentences(fileData), Counter.findLongestWord(fileData));
+            TextData data = new TextData(filePath, fileData);
 
-            System.out.println("File Name: " + data.getFileName());
+            System.out.println("File Name: " + data.getFileNameShort());
             System.out.println("Number of Vowels: " + data.getNumberOfVowels());
             System.out.println("Number of Consonants: " + data.getNumberOfConsonants());
             System.out.println("Number of Letters: " + data.getNumberOfLetters());

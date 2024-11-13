@@ -32,6 +32,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+
             System.out.println("===== Display Assistant Menu =====");
             System.out.println("1. Show Best Display");
             System.out.println("2. Buy Display");
@@ -39,9 +40,13 @@ public class Main {
             System.out.println("4. Get Recommendation");
             System.out.println("5. Exit");
             System.out.print("Choose an option (1-5): ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            int choice = 0;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+            }catch(Exception e) {
+                scanner.nextLine();
+            }
 
             switch (choice) {
                 case 1:
@@ -89,6 +94,7 @@ public class Main {
             }
             System.out.println();
         }
+
 
 
     }
