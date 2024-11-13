@@ -13,25 +13,23 @@ class Cappuccino extends Coffee {
         this.mlOfMilk = mlOfMilk;
     }
 
-    @Override
-    public Cappuccino makeCoffee(){
-        super.makeCoffee();
-        System.out.println("Steaming " + mlOfMilk + " ml of milk to a velvety texture");
-        System.out.println("Pouring steamed milk into espresso and topping with foam");
+
+    public Cappuccino makeCappuccino(){
+        this.makeRecipe();
         return this;
     }
 
-    public int getMlOfMilk() {
-        return mlOfMilk;
-    }
+    @Override
+    public void makeRecipe(){
+        super.makeRecipe();
+        System.out.println("Steaming " + mlOfMilk + " ml of milk to a velvety texture");
+        System.out.println("Pouring steamed milk into espresso and topping with foam");
 
-    public void setMlOfMilk(int mlOfMilk) {
-        this.mlOfMilk = mlOfMilk;
     }
 
     @Override
     public void printCoffeeDetails() {
-        super.printCoffeeDetails();;
+        super.printCoffeeDetails();
         System.out.println("Quantity of milk: " + mlOfMilk);
     }
 

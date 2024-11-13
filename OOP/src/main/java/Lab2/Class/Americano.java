@@ -9,8 +9,8 @@ class Americano extends Coffee {
     }
 
 
-    public Americano makeCoffee(){
-        super.makeCoffee();
+    public Americano makeAmericano(){
+        super.makeRecipe();
         System.out.println("Brewing a concentrated espresso shot");
         System.out.println("Adding " + mlOfWater + "ml of hot water to dilute the espresso");
         return this;

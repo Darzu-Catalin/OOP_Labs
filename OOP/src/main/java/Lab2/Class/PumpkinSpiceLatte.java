@@ -8,19 +8,19 @@ class PumpkinSpiceLatte extends Cappuccino{
         this.mgOfPumpkinSpice = mgOfPumpkinSpice;
     }
 
-    public PumpkinSpiceLatte makeCoffee() {
-        super.makeCoffee();
-        System.out.println("Steaming " + getMlOfMilk() + " ml of milk with " + mgOfPumpkinSpice + "mg of pumpkin spice");
-        System.out.println("Pouring spiced milk into the espresso and topping with foam");
+    public PumpkinSpiceLatte makePumpkinSpice() {
+        // makePumpkinSpice should not call makeCappuccino
+        // but still reuse cappuccino recipe
+        //super.makeCappuccino();
+        this.makeRecipe();
         return this;
     }
 
-    public int getMgOfPumpkinSpice() {
-        return mgOfPumpkinSpice;
-    }
-
-    public void setMgOfPumpkinSpice(int mgOfPumpkinSpice) {
-        this.mgOfPumpkinSpice = mgOfPumpkinSpice;
+    @Override
+    public void makeRecipe() {
+        super.makeRecipe();
+        System.out.println("Adding "+ mgOfPumpkinSpice + "mg of pumpkin spice");
+        System.out.println("Pouring spiced milk into the espresso and topping with foam");
     }
 
     @Override

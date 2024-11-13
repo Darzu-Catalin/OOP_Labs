@@ -16,10 +16,9 @@ class SyrupCappuccino extends Cappuccino {
         this.syrup = syrup;
     }
 
-    public SyrupCappuccino makeCoffee() {
-        super.makeCoffee();
+    public SyrupCappuccino makeSyrupCappuccino() {
+        super.makeRecipe();
         System.out.println("Adding " + syrup + " syrup to the cup");
-        System.out.println("Steaming " + getMlOfMilk() + "ml of milk and pouring over the espresso");
         System.out.println("Topping with foam and a drizzle of " + syrup + " syrup");
         return this;
     }
