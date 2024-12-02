@@ -1,5 +1,5 @@
 package Test;
-import Lab3.Task1.*;
+import Lab3.Queue.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
