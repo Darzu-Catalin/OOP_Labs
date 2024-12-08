@@ -13,8 +13,10 @@ public class CarStation {
     private final Dineable peopleDiningService;
     private final Dineable robotDiningService;
     private final Refuelable electricRefuelingService;
-    private final Refuelable gasRefuilingservice;
+    private final Refuelable gasRefuelingService;
     private final LinkedQueue<Car> queue;
+
+    // Counters
     private int gasCars = 0;
     private int electricCars = 0;
     private int people = 0;
@@ -24,89 +26,91 @@ public class CarStation {
     private int consumptionGas = 0;
     private int consumptionElectric = 0;
 
-    public CarStation(){
+    public CarStation() {
         this.peopleDiningService = new PeopleDinner();
         this.robotDiningService = new RobotDinner();
         this.electricRefuelingService = new ElectricStation();
-        this.gasRefuilingservice = new GasStation();
+        this.gasRefuelingService = new GasStation();
         this.queue = new LinkedQueue<>();
     }
 
     public void addCar(Car car) {
         queue.enqueue(car);
-        System.out.println("Car with the id " + car.getCarID() + " added to the queue.");
+        System.out.println("Car with the ID " + car.getCarID() + " added to the queue.");
     }
 
-    public void serveElectricCars() {
-        print_separator();
+    public void serveCars() {
+        printSeparator();
         while (!queue.isEmpty()) {
             Car car = queue.dequeue();
 
-            electricRefuelingService.refuel(car.getCarID());
-            electricCars += 1;
-            consumptionElectric += car.getConsumption();
+            // Refuel the car based on its fuel type
+            if ("GAS".equalsIgnoreCase(car.getFuelType())) {
+                gasCars++;
+                consumptionGas += car.getConsumption();
+                gasRefuelingService.refuel(car.getCarID());
+            } else if ("ELECTRIC".equalsIgnoreCase(car.getFuelType())) {
+                electricCars++;
+                consumptionElectric += car.getConsumption();
+                electricRefuelingService.refuel(car.getCarID());
+            }
 
-            dinningService(car);
-
+            // Serve dinner if needed
+            handleDining(car);
         }
-        print_separator();
-        System.out.println("All cars have been served.\n" +
-                "Electric cars: " + electricCars + "\n" +
-                "People served: " + people + ", Robots served: " + robots + "\n" +
-                "Dining cars: " + dining + ", Not dining cars: " + notDining + "\n" +
-                "Consumption (electric): " + consumptionElectric);
 
-        print_separator();
+        // Print summary after serving all cars
+        printSummary();
+        printSeparator();
     }
 
-    public void serveGasCars() {
-        print_separator();
-        while (!queue.isEmpty()) {
-            Car car = queue.dequeue();
-
-            gasCars += 1;
-            consumptionGas += car.getConsumption();
-            gasRefuilingservice.refuel(car.getCarID());
-
-            dinningService(car);
-        }
-        print_separator();
-        System.out.println("All cars have been served.\n" +
-                "Gas cars: "  + gasCars + "\n" +
-                "People served: " + people + " Robots served: " + robots + "\n" +
-                "Dining cars: " + dining + " Not dining cars: " + notDining + "\n" +
-                "Consumption (gas): " + consumptionGas);
-
-        print_separator();
-    }
-
-    private void dinningService(Car car){
+    public void handleDining(Car car) {
         if (car.needsDinner()) {
-            dining += 1;
+            dining++;
             if ("people".equalsIgnoreCase(car.getPassangerType())) {
                 peopleDiningService.serveDinner(car.getCarID());
-                people += 1;
+                people++;
             } else if ("robots".equalsIgnoreCase(car.getPassangerType())) {
                 robotDiningService.serveDinner(car.getCarID());
-                robots += 1;
+                robots++;
             }
-            dining += 1;
         } else {
-            notDining += 1;
+            notDining++;
             if ("people".equalsIgnoreCase(car.getPassangerType())) {
-                people += 1;
+                people++;
             } else if ("robots".equalsIgnoreCase(car.getPassangerType())) {
-                robots += 1;
+                robots++;
             }
         }
+    }
+
+    public void printSummary() {
+        System.out.println("All cars have been served.\n" +
+                "Gas cars: " + gasCars + "\n" +
+                "Electric cars: " + electricCars + "\n" +
+                "People served: " + people + "\n" +
+                "Robots served: " + robots + "\n" +
+                "Dining cars: " + dining + "\n" +
+                "Not dining cars: " + notDining + "\n" +
+                "Consumption (Gas): " + consumptionGas + "\n" +
+                "Consumption (Electric): " + consumptionElectric);
     }
 
     public Queue<Car> getQueue() {
-        return queue;
+        return this.queue;
     }
 
-    private void print_separator() {
+    public int getGasCars() {
+        return gasCars;
+    }
+
+    public int getElectricCars() {
+        return electricCars;
+    }
+
+
+
+    private void printSeparator() {
         System.out.println("-----------------------------------------------------");
     }
-
 }
